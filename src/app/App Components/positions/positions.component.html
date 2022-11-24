@@ -1,0 +1,336 @@
+
+<div class="container">
+  <mat-accordion>
+    
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
+      
+      <mat-expansion-panel-header>
+        
+        <mat-panel-title>
+          <button mat-icon-button  aria-label="Example icon-button with a menu" (click)="openDialog()"><mat-icon>more_vert</mat-icon></button>
+          {{activeFundName}}
+        </mat-panel-title>
+
+        <mat-panel-description> 
+          <div *ngIf="panelOpenState===false">
+            <h5 class="example-justify">
+
+              NAV &nbsp;&nbsp; {{fundPerformance.CurrentNAV|number}} &nbsp; &nbsp;
+      
+              MTD  &nbsp;&nbsp; <div *ngIf="fundPerformance.MTD >=0; then thenMTDHeadBlock else elseMTDHeadBlock"></div>
+              <ng-template #thenMTDHeadBlock>
+                <span class="greenColor">{{fundPerformance.MTD|number}}</span>
+              </ng-template>
+              <ng-template #elseMTDHeadBlock>
+                <span class="redColor">({{fundPerformance.MTD|postiveNum|number}})</span>
+              </ng-template> 
+              &nbsp;&nbsp;
+      
+              <div *ngIf="fundPerformance.MTDPercent  >=0; then thenMTDPercentHeadBlock else elseMTDPercentHeadBlock"></div>
+              <ng-template #thenMTDPercentHeadBlock>
+                <span class="greenColor">{{fundPerformance.MTDPercent|number:'1.0-0'}}%</span>&nbsp;&nbsp;
+                <span class="greenColor">▲</span></ng-template>
+              <ng-template #elseMTDPercentHeadBlock>
+                <span class="redColor">({{fundPerformance.MTDPercent|number:'1.0-0'}}%)</span> &nbsp;&nbsp;
+                <span class="redColor">▼</span>
+              </ng-template> 
+                &nbsp;&nbsp;
+      
+                Daily  &nbsp;&nbsp; <div *ngIf="fundPerformance.Daily >=0; then thenDailyHeadBlock else elseDailyHeadBlock"></div>
+                <ng-template #thenDailyHeadBlock><span class="greenColor">{{fundPerformance.Daily}}</span></ng-template>
+                <ng-template #elseDailyHeadBlock><span class="redColor">({{fundPerformance.Daily|postiveNum|number}})</span></ng-template> &nbsp;&nbsp; 
+               
+                <div *ngIf="fundPerformance.DailyPercent  >=0; then thenDailyPercentHeadBlock else elseDailyPercentHeadBlock"></div>
+              <ng-template #thenDailyPercentHeadBlock>
+                <span class="greenColor">{{fundPerformance.DailyPercent|number:'1.0-0'}}%</span> &nbsp;&nbsp;
+                <span class="greenColor">▲</span>
+              </ng-template>
+              <ng-template #elseDailyPercentHeadBlock>
+                <span class="redColor">({{fundPerformance.DailyPercent|postiveNum|number:'1.0-0'}}%)</span>&nbsp;&nbsp;
+                <span class="redColor">▼</span>
+              </ng-template> 
+              &nbsp;&nbsp;
+            </h5>
+          </div>
+        </mat-panel-description>
+    
+      </mat-expansion-panel-header>
+
+      
+        <h5 class="example-justify">
+          
+          NAV &nbsp;&nbsp; {{fundPerformance.CurrentNAV|number}} &nbsp; &nbsp;  
+          
+          MTD  &nbsp;&nbsp; <div *ngIf="fundPerformance.MTD >=0; then thenMTDBlock else elseMTDBlock"></div>
+          <ng-template #thenMTDBlock>
+            <span class="greenColor">{{fundPerformance.MTD|number}}</span>
+          </ng-template>
+          <ng-template #elseMTDBlock>
+            <span class="redColor">({{fundPerformance.MTD|postiveNum|number}})</span>
+          </ng-template> 
+          &nbsp;&nbsp;
+          
+          <div *ngIf="fundPerformance.MTDPercent  >=0; then thenMTDPercentBlock else elseMTDPercentBlock"></div>
+          <ng-template #thenMTDPercentBlock>
+            <span class="greenColor">{{fundPerformance.MTDPercent|number:'1.0-0'}}%</span>&nbsp;&nbsp;
+            <span class="greenColor">▲</span></ng-template>
+          <ng-template #elseMTDPercentBlock>
+            <span class="redColor">({{fundPerformance.MTDPercent|number:'1.0-0'}}%)</span> &nbsp;&nbsp;
+            <span class="redColor">▼</span>
+          </ng-template> 
+            &nbsp;&nbsp;
+          
+          YTD &nbsp;&nbsp; <div *ngIf="fundPerformance.YTD >=0; then thenYTDBlock else elseYTDBlock"></div>
+          <ng-template #thenYTDBlock>
+            <span class="greenColor">{{fundPerformance.YTD|number:'1.0-0'}}%</span>
+          </ng-template>
+          <ng-template #elseYTDBlock>
+            <span class="redColor">({{fundPerformance.YTD|postiveNum|number:'1.0-0'}}%)</span>
+          </ng-template>
+          &nbsp;&nbsp; 
+
+          Posn(L)&nbsp;&nbsp;  {{fundPerformance.PositionLong|number}} &nbsp;&nbsp;
+
+          Cash(L)&nbsp;&nbsp;  {{fundPerformance.PositionCashLong|number}} &nbsp;&nbsp;
+
+          Exp(L) &nbsp;&nbsp; {{fundPerformance.PositionLongExposure|number}} &nbsp;&nbsp; 
+
+          Net Exp&nbsp;&nbsp;  {{fundPerformance.PositionNetExposure}}
+        
+        </h5>
+
+      <h5 class="example-justify">
+        
+        Close &nbsp;&nbsp; {{fundPerformance.YesterdayNAV|number}} &nbsp; &nbsp;
+
+        Daily  &nbsp;&nbsp; <div *ngIf="fundPerformance.Daily >=0; then thenDailyBlock else elseDailyBlock"></div>
+        <ng-template #thenDailyBlock><span class="greenColor">{{fundPerformance.Daily}}</span></ng-template>
+        <ng-template #elseDailyBlock><span class="redColor">({{fundPerformance.Daily|postiveNum|number}})</span></ng-template> &nbsp;&nbsp; 
+        
+        <div *ngIf="fundPerformance.DailyPercent  >=0; then thenDailyPercentBlock else elseDailyPercentBlock"></div>
+          <ng-template #thenDailyPercentBlock>
+            <span class="greenColor">{{fundPerformance.DailyPercent|number:'1.0-0'}}%</span> &nbsp;&nbsp;
+            <span class="greenColor">▲</span>
+          </ng-template>
+
+          <ng-template #elseDailyPercentBlock>
+            <span class="redColor">({{fundPerformance.DailyPercent|postiveNum|number:'1.0-0'}}%)</span>&nbsp;&nbsp;
+            <span class="redColor">▼</span>
+          </ng-template> 
+          &nbsp;&nbsp;
+        
+        QTD &nbsp;&nbsp; <div *ngIf="fundPerformance.QTD >=0; then thenQTDBlock else elseQTDBlock"></div>
+        <ng-template #thenQTDBlock><span class="greenColor">{{fundPerformance.QTD|number:'1.0-0'}}%</span></ng-template>
+        <ng-template #elseQTDBlock><span class="redColor">({{fundPerformance.QTD|postiveNum|number:'1.0-0'}}%)</span></ng-template> &nbsp;&nbsp; 
+        
+        Posn(S)&nbsp;&nbsp;  {{fundPerformance.PositionShort|postiveNum|number}} &nbsp;&nbsp;
+        
+        Cash(S)&nbsp;&nbsp;  {{fundPerformance.PositionCashShort|postiveNum|number}} &nbsp;&nbsp;  
+        
+        Exp(S) &nbsp;&nbsp; {{fundPerformance.PositionShortExposure|postiveNum|number}} &nbsp;&nbsp; 
+        
+        Gross Exp&nbsp;&nbsp;  {{fundPerformance.PositionGrossExposure}}
+      
+      </h5>
+    
+      
+    </mat-expansion-panel>
+
+  </mat-accordion>
+    
+
+    <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filter" #input>
+  </mat-form-field>
+  
+    <div class=" mat-elevation-z8" >
+      <div class="example-container">
+      <table mat-table [dataSource]="dataSource" matSort>
+    
+        <!-- FundName Column -->
+        <ng-container matColumnDef="FundName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fund</th>
+          <td mat-cell *matCellDef="let row"> {{row.FundName}} </td>
+        </ng-container>
+        
+        <!-- ProductType Column -->
+        <ng-container matColumnDef="ProductType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProductType}} </td>
+        </ng-container>
+    
+        <!-- ProductID Column -->
+        <ng-container matColumnDef="ProductID">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Identifier</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProductID}} </td>
+        </ng-container>
+  
+        <!-- ProductDescription Column -->
+        <ng-container matColumnDef="ProductDescription">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProductDescription}} </td>
+        </ng-container>
+  
+        <!-- PositionClass Column -->
+        <ng-container matColumnDef="PositionClass">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>L/S</th>
+          <td mat-cell *matCellDef="let row"> {{row.PositionClass}} </td>
+        </ng-container>
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="Quantity">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+          <td mat-cell *matCellDef="let row"> {{row.Quantity}} </td>
+        </ng-container>
+        <!-- PricingCurrency Column -->
+        <ng-container matColumnDef="PricingCurrency">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CCY</th>
+          <td mat-cell *matCellDef="let row"> {{row.PricingCurrency}} </td>
+        </ng-container>
+        <!-- SettleCurrency Column -->
+        <ng-container matColumnDef="SettleCurrency">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>CCY (S)</th>
+          <td mat-cell *matCellDef="let row"> {{row.SettleCurrency}} </td>
+        </ng-container>
+        <!-- CostPrice Column -->
+        <ng-container matColumnDef="CostPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Cost Price</th>
+          <td mat-cell *matCellDef="let row"> {{row.CostPrice}} </td>
+        </ng-container>
+        <!-- CurrentPrice Column -->
+        <ng-container matColumnDef="CurrentPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Price</th>
+          <td mat-cell *matCellDef="let row"> {{row.CurrentPrice}} </td>
+        </ng-container>
+        <!-- InitialOpenCostLocal Column -->
+        <ng-container matColumnDef="InitialOpenCostLocal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Initial Cost (Local)</th>
+          <td mat-cell *matCellDef="let row"> {{row.InitialOpenCostLocal}} </td>
+        </ng-container>
+        <!-- InitialOpenCostBase Column -->
+        <ng-container matColumnDef="InitialOpenCostBase">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Initial Cost (Base)</th>
+          <td mat-cell *matCellDef="let row"> {{row.InitialOpenCostBase}} </td>
+        </ng-container>
+        <!-- ProfitLossBase Column -->
+        <ng-container matColumnDef="ProfitLossBase">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>P&L (B)</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProfitLossBase}} </td>
+        </ng-container>
+        <!-- MarketValueLocal Column -->
+        <ng-container matColumnDef="MarketValueLocal">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Market Value (Local)</th>
+          <td mat-cell *matCellDef="let row"> {{row.MarketValueLocal}} </td>
+        </ng-container>
+        <!-- LastCloseDirection Column -->
+        <ng-container matColumnDef="LastCloseDirection">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Dir</th>
+          <td mat-cell *matCellDef="let row"> {{row.LastCloseDirection}} </td>
+        </ng-container>
+        <!-- FXRate Column -->
+        <ng-container matColumnDef="FXRate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>FX Rate</th>
+          <td mat-cell *matCellDef="let row"> {{row.FXRate}} </td>
+        </ng-container>
+        <!-- CustodianValue Column -->
+        <ng-container matColumnDef="CustodianValue">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Custodian</th>
+          <td mat-cell *matCellDef="let row"> {{row.CustodianValue}} </td>
+        </ng-container>
+        <!-- Exchange Column -->
+        <ng-container matColumnDef="Exchange">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Exchange</th>
+          <td mat-cell *matCellDef="let row"> {{row.Exchange}} </td>
+        </ng-container>
+        <!-- ISIN Column -->
+        <ng-container matColumnDef="ISIN">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ISIN</th>
+          <td mat-cell *matCellDef="let row"> {{row.ISIN}} </td>
+        </ng-container>
+        <!-- ISO Column -->
+        <ng-container matColumnDef="ISO">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ISO</th>
+          <td mat-cell *matCellDef="let row"> {{row.ISO}} </td>
+        </ng-container>
+        
+        <!-- NetPrice Column -->
+        <ng-container matColumnDef="NetPrice">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Net Price</th>
+          <td mat-cell *matCellDef="let row"> {{row.NetPrice}} </td>
+        </ng-container>
+        <!-- ProfitLoss Column -->
+        <ng-container matColumnDef="ProfitLoss">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>P&L (Local)</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProfitLoss}} </td>
+        </ng-container>
+        <!-- PercentageMovementFromLastClose Column -->
+        <ng-container matColumnDef="PercentageMovementFromLastClose">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>% Day</th>
+          <td mat-cell *matCellDef="let row"> {{row.PercentageMovementFromLastClose}} </td>
+        </ng-container>
+        <!-- PercentExposureOfNAV Column -->
+        <ng-container matColumnDef="PercentExposureOfNAV">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>% Exp of NAV</th>
+          <td mat-cell *matCellDef="let row"> {{row.PercentExposureOfNAV}} </td>
+        </ng-container>
+        <!-- BenchmarkPercentOfFundNAV Column -->
+        <ng-container matColumnDef="BenchmarkPercentOfFundNAV">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Benchmark</th>
+          <td mat-cell *matCellDef="let row"> {{row.BenchmarkPercentOfFundNAV}} </td>
+        </ng-container>
+        <!-- Lqdty Column -->
+        <ng-container matColumnDef="Lqdty">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lqdty</th>
+          <td mat-cell *matCellDef="let row"> {{row.Lqdty}} </td>
+        </ng-container>
+        <!-- Lqdty_Pos_1d Column -->
+        <ng-container matColumnDef="Lqdty_Pos_1d">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Lqdty 1d</th>
+          <td mat-cell *matCellDef="let row"> {{row.Lqdty_Pos_1d}} </td>
+        </ng-container>
+        <!-- NetProfitLossBase Column -->
+        <ng-container matColumnDef="NetProfitLossBase">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Net P&L(B)</th>
+          <td mat-cell *matCellDef="let row"> {{row.NetProfitLossBase}} </td>
+        </ng-container>
+        <!-- ProfitLossExclFX Column -->
+        <ng-container matColumnDef="ProfitLossExclFX">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>P&L Excl FX</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProfitLossExclFX}} </td>
+        </ng-container>
+        <!-- ProfitLossFXOnly Column -->
+        <ng-container matColumnDef="ProfitLossFXOnly">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>P&L FX only</th>
+          <td mat-cell *matCellDef="let row"> {{row.ProfitLossFXOnly}} </td>
+        </ng-container>
+        <!-- Book Column -->
+        <ng-container matColumnDef="Book">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Book</th>
+          <td mat-cell *matCellDef="let row"> {{row.Book}} </td>
+        </ng-container>
+        <!-- Strategy Column -->
+        <ng-container matColumnDef="Strategy">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Strategy</th>
+          <td mat-cell *matCellDef="let row"> {{row.Strategy}} </td>
+        </ng-container>
+        
+        
+        
+    
+    
+        
+    
+        <tr mat-header-row *matHeaderRowDef="activeColumns;sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: activeColumns;"></tr>
+    
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}" </td>
+        </tr>
+      </table>
+    </div>
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator> -->
+    </div>
+</div>
+  
+    

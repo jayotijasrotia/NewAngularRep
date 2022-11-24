@@ -1,0 +1,63 @@
+<!-- <div *ngIf=" isLoading=='false'"> -->
+    <div *ngIf="isLogin then thenBlock1 else elseBlock2"></div>
+    <ng-template #thenBlock1>
+        <router-outlet></router-outlet>
+    </ng-template>
+    <ng-template #elseBlock2>
+        <app-log-in (islogin)=OnLogin($event)></app-log-in>
+    </ng-template>
+    <mat-toolbar>
+        <div *ngIf=" isLoading=='false'">
+        <div *ngIf="isLogin">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>menu</mat-icon>
+
+            </button>
+
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item>Positions</button>
+                <button mat-menu-item (click)="OnLogout()">Logout</button>
+            </mat-menu>
+        </div>
+    </div>
+        <span class="example-spacer">
+            <p style="color:rgb(244, 244, 247);font-size:16px;"> Arbor Financial Systems</p>  
+          
+        </span>
+        <div *ngIf=" isLoading=='false'">
+        <div *ngIf="isLogin; then thenBlock else elseBlock"></div>
+        <ng-template #thenBlock>
+            <button mat-icon-button [matMenuTriggerFor]="menu2">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu id="d" #menu2="matMenu">
+                <button mat-menu-item (click)="CSVGenrate()"><span>Export to CSV</span></button>
+                <!-- <button mat-menu-item(click)="PDFGenerate()">Export to PDF</button>  -->
+                 <button mat-menu-item (click)="onDecimalChange()">Decimals</button> 
+             <button mat-menu-item (click)="onJustify()">Align</button> 
+               <button mat-menu-item (click)="onPin()">Pin Column</button> 
+             <button mat-menu-item (click)="onOrder()">Ordering</button>  
+                <div mat-menu-item class="toggle">
+                    <mat-slide-toggle [(ngModel)]="isChecked" (change)="changed($event)">
+                        <mat-icon>{{ mode }}</mat-icon>
+                    </mat-slide-toggle>
+                    <!-- <mat-icon>{{ mode }}</mat-icon> -->
+                </div>
+            </mat-menu>
+        </ng-template>
+        <ng-template #elseBlock>
+            <button mat-icon-button [matMenuTriggerFor]="menu2">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu #menu2="matMenu">
+                <div mat-menu-item class="toggle">
+                    <mat-slide-toggle [(ngModel)]="isChecked" (change)="changed($event)">
+                        Dark Mode <mat-icon>{{ mode }}</mat-icon>
+                    </mat-slide-toggle>
+                    <!-- <mat-icon>{{ mode }}</mat-icon> -->
+                </div>
+            </mat-menu>
+        </ng-template>
+    </div>
+    </mat-toolbar>
+<!-- </div> -->

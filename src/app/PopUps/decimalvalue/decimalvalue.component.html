@@ -1,0 +1,40 @@
+<!-- <label id="example-radio-group-label"><h4>Set Decimal Places</h4></label>
+<mat-form-field appearance="outline">
+    <mat-label>Current Price</mat-label>
+    <mat-select [(ngModel)]="currentPrice" [(value)]="currentPrice">
+      <mat-option *ngFor="let deci of decimalArray" [value]="deci">{{deci}}</mat-option> 
+    </mat-select>
+  </mat-form-field>
+
+<button mat-icon-button (click)="setDecimals()"><mat-icon>save</mat-icon></button> -->
+
+<h2 mat-dialog-title>Set Decimal Places</h2>
+  <mat-dialog-content *ngFor=" let column of allActiveCol" >
+    <label for="">{{column.ColName}}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <mat-form-field class="example-full-width" appearance="outline" >
+
+      <mat-select [(ngModel)]="column.decimalPlaces">
+        <mat-option *ngFor="let deci of decimalArray" [value]="deci">{{deci}}</mat-option> 
+      </mat-select>
+    </mat-form-field>
+      
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="setDecimals()"> Save</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+
+<!-- <label id="example-radio-group-label"><h4>Set Decimal Places</h4></label>
+<div *ngFor="let column of allActiveCol">
+  <label for="">{{column.fieldName}}</label>
+  <mat-form-field appearance="outline" >
+    <mat-label>{{column.fieldName}}</mat-label>
+    <mat-select [(ngModel)]="currentPrice" [(value)]="currentPrice">
+      <mat-option *ngFor="let deci of decimalArray" [value]="deci">{{deci}}</mat-option> 
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button (click)="setDecimals()"><mat-icon>save</mat-icon></button>
+ 
+</div> -->
+
+

@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+@import './theme/global.scss';
+
+@import 'ag-grid-community/styles/ag-grid.css';
+@import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.darkMode.mat-app-background {
+    background-color: #0e0606;
+}
+.darkMode .mat-toolbar {
+    background: #070707;
+}
+
+.cell-fail{
+    text-align:center;
+    font-weight: bold;
+    background-color: aquamarine;
+}
+.cell-pass{
+    text-align:center;
+    font-weight: bold;
+    background-color:#b30909;
+
+}
+html,
+body, #myGrid {
+  height: 100%;
+  width: 100%;
+}
+.setPerens {
+    :before {
+     content: '(';
+    :after {
+     content: ')';
+    }
+   }
+}

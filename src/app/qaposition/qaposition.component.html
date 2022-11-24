@@ -1,0 +1,470 @@
+
+<mat-progress-spinner [mode]="'indeterminate'" *ngIf="isloader=='true'"></mat-progress-spinner>
+<!-- <div  *ngIf="isloader=='false'">
+  <div class="contianer1"> -->
+    
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" > 
+        <mat-expansion-panel-header >
+          <div class="my-panel" (click)="$event.stopPropagation();" >  
+          </div>
+          <mat-panel-title (click)="$event.stopPropagation();">
+             <button mat-icon-button aria-label="Example icon-button with a menu" (click)="openDialog()" id="forceRefresh">
+              <mat-icon style="color:rgb(243, 243, 245)">more_vert</mat-icon>
+            </button> 
+            
+            <div *ngIf="activeMode=='None'; then OnlyFund else FundWithMode"></div>
+            <ng-template  #OnlyFund>
+              <span style="color:rgb(243, 243, 245)"> {{activeFundName}} </span>
+            </ng-template>
+            <ng-template style="color:rgb(243, 243, 245)" #FundWithMode>
+              <span style="color:rgb(243, 243, 245)">    {{activeFundName}} ( {{activeMode}} )</span>
+            </ng-template>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div *ngIf="panelOpenState===true">
+              <!-- <span class="example-justify"> -->
+                NAV &nbsp;
+                <div *ngIf="fundPerformance.CurrentNAV >=0; then thenCurrentNAVHeadBlock3 else elseCurrentNAVHeadBlock3">
+                </div>
+                <ng-template #thenCurrentNAVHeadBlock3>
+                  <span>{{fundPerformance.CurrentNAV|number}}</span>
+                </ng-template>
+                <ng-template #elseCurrentNAVHeadBlock3>
+                  <span>({{fundPerformance.CurrentNAV|number}})</span>
+                </ng-template>
+                &nbsp; &nbsp;
+                MTD &nbsp;&nbsp; 
+                <div *ngIf="fundPerformance.MTD >=0; then thenMTDHeadBlock else elseMTDHeadBlock"></div>
+                <ng-template #thenMTDHeadBlock>
+                  <span class="greenColor">{{fundPerformance.MTD|number}}</span>
+                </ng-template>
+                <ng-template #elseMTDHeadBlock>
+                  <span class="redColor">({{fundPerformance.MTD|postiveNum|number}})</span>
+                </ng-template>
+                &nbsp;&nbsp;
+                <div *ngIf="fundPerformance.MTDPercent  >=0; then thenMTDPercentHeadBlock else elseMTDPercentHeadBlock">
+                </div>
+                <ng-template #thenMTDPercentHeadBlock>
+                  <span class="greenColor">{{fundPerformance.MTDPercent|number:'1.0-0'}}%</span>
+                  
+                </ng-template>
+                <ng-template #elseMTDPercentHeadBlock>
+                  <span class="redColor">({{fundPerformance.MTDPercent|postiveNum|number:'1.0-0'}}%)</span> 
+                  
+                </ng-template>
+                &nbsp;&nbsp;
+                Daily &nbsp;&nbsp;
+                <div *ngIf="fundPerformance.Daily >=0; then thenDailyHeadBlock else elseDailyHeadBlock"></div>
+                <ng-template #thenDailyHeadBlock><span class="greenColor">{{fundPerformance.Daily|number}}</span>
+                </ng-template>
+                <ng-template #elseDailyHeadBlock><span
+                    class="redColor">({{fundPerformance.Daily|postiveNum|number}})</span></ng-template> &nbsp;&nbsp;
+                <div *ngIf="fundPerformance.DailyPercent  >=0; then thenDailyPercentHeadBlock else elseDailyPercentHeadBlock">
+                </div>
+                <ng-template #thenDailyPercentHeadBlock>
+                  <span class="greenColor">{{fundPerformance.DailyPercent|number:'1.0-0'}}%</span> 
+                  
+                </ng-template>
+                <ng-template #elseDailyPercentHeadBlock>
+                  <span class="redColor">({{fundPerformance.DailyPercent|postiveNum|number:'1.0-0'}}%)</span>
+                  
+                </ng-template>
+                &nbsp;&nbsp;
+              <!-- </span> -->
+            </div> 
+            <div *ngIf="panelOpenState==false">             
+               <div class="heading"> 
+                  <span style="color:rgb(243, 243, 245)">NAV</span><br><span style="color:rgb(243, 243, 245)">Close</span>
+              </div> 
+                &nbsp;&nbsp;
+                <div class="headingValue">
+                  <div *ngIf="fundPerformance.CurrentNAV >=0; then thenCurrentNAVBlock else elseCurrentNAVBlock"></div>
+                  <ng-template #thenCurrentNAVBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.CurrentNAV|number}}</span></ng-template>
+                  <ng-template #elseCurrentNAVBlock><span style="color:rgb(243, 243, 245)">({{fundPerformance.CurrentNAV|postiveNum|number}})</span></ng-template>
+                  <br>
+                  <div *ngIf="fundPerformance.YesterdayNAV >=0; then thenYesterdayNAVBlock else elseYesterdayNAVBlock"></div>
+                  <ng-template #thenYesterdayNAVBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.YesterdayNAV|number}}</span></ng-template>
+                  <ng-template #elseYesterdayNAVBlock><span style="color:rgb(243, 243, 245)">({{fundPerformance.YesterdayNAV|postiveNum|number}})</span>
+                  </ng-template>
+                </div>
+                &nbsp;
+                <div class="box">
+                  <div class="heading">
+                    <span style="color:rgb(243, 243, 245)">MTD</span><br><span style="color:rgb(243, 243, 245)">Daily</span>
+                  </div>
+                  &nbsp;&nbsp;
+                  <div class="headingValue">
+                    <div *ngIf="fundPerformance.MTD >=0; then thenMTDBlock else elseMTDBlock"></div>
+                    <ng-template #thenMTDBlock>
+                      <span class="greenColor">{{fundPerformance.MTD|number}}</span>
+                    </ng-template>
+                    <ng-template #elseMTDBlock>
+                      <span class="redColor">({{fundPerformance.MTD|postiveNum|number}})</span>
+                    </ng-template>
+                    <br>
+                    <div *ngIf="fundPerformance.Daily >=0; then thenDailyBlock else elseDailyBlock"></div>
+                    <ng-template #thenDailyBlock><span class="greenColor">{{fundPerformance.Daily|number}}</span></ng-template>
+                    <ng-template #elseDailyBlock><span class="redColor">({{fundPerformance.Daily|postiveNum|number}})</span>
+                    </ng-template>
+                  </div>
+                  &nbsp;&nbsp;
+                <div class="headingValue">
+                  <div *ngIf="fundPerformance.MTDPercent >=0; then thenMTDPercentBlock else elseMTDPercentBlock"></div>
+                  <ng-template #thenMTDPercentBlock>
+                    <span class="greenColor">{{fundPerformance.MTDPercent|number:'1.0-0'}}%</span>
+              
+                  </ng-template>
+                  <ng-template #elseMTDPercentBlock>
+                    <span class="redColor">({{fundPerformance.MTDPercent|postiveNum|number:'1.0-0'}}%)</span>&nbsp;&nbsp;
+              
+                  </ng-template>
+                  <br>
+                  <div *ngIf="fundPerformance.DailyPercent  >=0; then thenDailyPercentBlock else elseDailyPercentBlock"></div>
+                  <ng-template #thenDailyPercentBlock>
+                    <span class="greenColor">{{fundPerformance.DailyPercent|number:'1.0-0'}}%</span>
+              
+                  </ng-template>
+                  <ng-template #elseDailyPercentBlock>
+                    <span class="redColor">({{fundPerformance.DailyPercent|postiveNum|number:'1.0-0'}}%)</span>
+              
+                  </ng-template>
+                </div>
+              </div>
+              <div class="box">
+                <div class="heading">
+                  <span style="color:rgb(243, 243, 245)">
+                    YTD
+                  </span>
+                  <br>
+                  <span style="color:rgb(239, 239, 240)">
+                    QTD
+                  </span>
+                </div>&nbsp;&nbsp;
+                <div class="headingValue">
+                  <div *ngIf="fundPerformance.YTD >=0; then thenYTDBlock else elseYTDBlock"></div>
+                  <ng-template #thenYTDBlock>
+                    <span class="greenColor">{{fundPerformance.YTD|number:'1.0-0'}}%</span>
+                  </ng-template>
+                  <ng-template #elseYTDBlock>
+                    <span class="redColor">({{fundPerformance.YTD|postiveNum|number:'1.0-0'}}%)</span>
+                  </ng-template>
+                  <br>
+                  <div *ngIf="fundPerformance.QTD >=0; then thenQTDBlock else elseQTDBlock"></div>
+                  <ng-template #thenQTDBlock><span class="greenColor">{{fundPerformance.QTD|number:'1.0-0'}}%</span>
+                  </ng-template>
+                  <ng-template #elseQTDBlock><span class="redColor">({{fundPerformance.QTD|postiveNum|number:'1.0-0'}}%)</span>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="box">
+                <div class="heading">
+                  <span style="color:rgb(243, 243, 245)">
+                    Posn (L)
+                  </span>
+                  <br>
+                  <span style="color:rgb(243, 243, 245)">
+                    Posn (s)
+                  </span>
+                </div>&nbsp;&nbsp;
+                <div class="headingValue">
+                  <div *ngIf="fundPerformance.PositionLong >=0; then thenPositionLongBlock else elsePositionLongBlock"></div>
+                  <ng-template #thenPositionLongBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionLong|number}}</span></ng-template>
+                  <ng-template #elsePositionLongBlock><span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionLong|postiveNum|number}})</span>
+                  </ng-template>
+                  <br>
+                  <div *ngIf="fundPerformance.PositionShort >=0; then thenPositionShortBlock else elsePositionShortBlock"></div>
+                  <ng-template #thenPositionShortBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionShort|number}}</span></ng-template>
+                  <ng-template #elsePositionShortBlock><span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionShort|postiveNum|number}})</span>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="box">
+                <div class="heading">
+                  <span style="color:rgb(243, 243, 245)">
+                    Cash (L)
+                  </span>
+                  <br>
+                  <span style="color:rgb(243, 243, 245)">
+                    Cash (S)
+                  </span>
+                </div>&nbsp;&nbsp;
+                <div class="headingValue">
+                  <div *ngIf="fundPerformance.PositionCashLong >=0; then thenPositionCashLongBlock else elsePositionCashLongBlock">
+                  </div>
+                  <ng-template #thenPositionCashLongBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionCashLong|number}}</span></ng-template>
+                  <ng-template #elsePositionCashLongBlock><span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionCashLong|postiveNum|number}})</span>
+                  </ng-template>
+                  <br>
+                  <div *ngIf="fundPerformance.PositionCashShort >=0; then thenPositionCashShortBlock else elsePositionCashShortBlock">
+                  </div>
+                  <ng-template #thenPositionCashShortBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionCashShort|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionCashShortBlock>
+                    <span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionCashShort|postiveNum|number}})</span>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="box">
+                <div class="heading">
+                  <span style="color:rgb(243, 243, 245)">
+                    Exp (L)
+                  </span>
+                  <br>
+                  <span style="color:rgb(243, 243, 245)">
+                    Exp (S)
+                  </span>
+                </div>&nbsp;&nbsp;
+                <div class="headingValue">
+                  <div
+                    *ngIf="fundPerformance.PositionLongExposure >=0; then thenPositionLongExposureBlock else elsePositionLongExposureBlock">
+                  </div>
+                   <div
+                    *ngIf="fundPerformance.PositionShortExposure >=0; then thenPositionShortExposureBlock else elsePositionShortExposureBlock">
+                  </div>
+                  <ng-template #thenPositionShortExposureBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionShortExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionShortExposureBlock>
+                    <span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionShortExposure|postiveNum|number}})</span>
+                  </ng-template>
+                </div>
+              </div>
+              <div class="box">
+                <div class="heading">
+                  <span style="color:rgb(243, 243, 245)">
+                    Net Exp
+                  </span>
+                  <br>
+                  <span style="color:rgb(243, 243, 245)">
+                    Gross Exp
+                  </span>
+                </div>&nbsp;&nbsp;
+                <div class="headingValue">
+                  <div
+                    *ngIf="fundPerformance.PositionNetExposure >=0; then thenPositionNetExposureBlock else elsePositionNetExposureBlock">
+                  </div>
+                  <ng-template #thenPositionNetExposureBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionNetExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionNetExposureBlock>
+                    <span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionNetExposure|postiveNum|number}})</span>
+                  </ng-template>
+                  <br>
+                  <div
+                    *ngIf="fundPerformance.PositionGrossExposure >=0; then thenPositionGrossExposureBlock else elsePositionGrossExposureBlock">
+                  </div>
+                  <ng-template #thenPositionGrossExposureBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionGrossExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionGrossExposureBlock>
+                    <span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionGrossExposure|postiveNum|number}})</span>
+                  </ng-template>
+                </div>
+              </div>
+               <!-- <h4 class="example-justify" >
+                <span class="navandclose">NAV</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div *ngIf="fundPerformance.CurrentNAV >=0; then thenCurrentNAVBlock else elseCurrentNAVBlock"></div>
+                  <ng-template #thenCurrentNAVBlock><span>{{fundPerformance.CurrentNAV|number}}</span></ng-template>
+                  <ng-template #elseCurrentNAVBlock><span>({{fundPerformance.CurrentNAV|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="MTDandDAILY">MTD</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="number2">
+                  <div *ngIf="fundPerformance.MTD >=0; then thenMTDBlock else elseMTDBlock"></div>
+                  <ng-template #thenMTDBlock>
+                    <span class="greenColor">{{fundPerformance.MTD|number}}</span>
+                  </ng-template>
+                  <ng-template #elseMTDBlock>
+                    <span class="redColor">({{fundPerformance.MTD|postiveNum|number}})</span>
+                  </ng-template>
+                </span>
+                <span class="percent">
+                  <div *ngIf="fundPerformance.MTDPercent >=0; then thenMTDPercentBlock else elseMTDPercentBlock"></div>
+                  <ng-template #thenMTDPercentBlock>
+                    <span class="greenColor">{{fundPerformance.MTDPercent|number:'1.0-0'}}%</span> 
+                    
+                  </ng-template>
+                  <ng-template #elseMTDPercentBlock>
+                    <span class="redColor">({{fundPerformance.MTDPercent|postiveNum|number:'1.0-0'}}%)</span>&nbsp;&nbsp;
+                    
+                  </ng-template>
+                </span>
+                <span class="ytdandQTD">YTD</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="percent">
+                  <div *ngIf="fundPerformance.YTD >=0; then thenYTDBlock else elseYTDBlock"></div>
+                  <ng-template #thenYTDBlock>
+                    <span class="greenColor">{{fundPerformance.YTD|number:'1.0-0'}}%</span>
+                  </ng-template>
+                  <ng-template #elseYTDBlock>
+                    <span class="redColor">({{fundPerformance.YTD|postiveNum|number:'1.0-0'}}%)</span>
+                  </ng-template>
+                </span>
+                <span class="b">Posn (L)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="number2">
+                  <div *ngIf="fundPerformance.PositionLong >=0; then thenPositionLongBlock else elsePositionLongBlock"></div>
+                  <ng-template #thenPositionLongBlock><span>{{fundPerformance.PositionLong|number}}</span></ng-template>
+                  <ng-template #elsePositionLongBlock><span>({{fundPerformance.PositionLong|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="b">Cash (L)</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionCashLong >=0; then thenPositionCashLongBlock else elsePositionCashLongBlock">
+                  </div>
+                  <ng-template #thenPositionCashLongBlock><span>{{fundPerformance.PositionCashLong|number}}</span></ng-template>
+                  <ng-template #elsePositionCashLongBlock><span>({{fundPerformance.PositionCashLong|postiveNum|number}})</span>
+                  </ng-template>
+                </span>
+                <span class="b">Exp (L)</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionLongExposure >=0; then thenPositionLongExposureBlock else elsePositionLongExposureBlock">
+                  </div>
+                  <ng-template #thenPositionLongExposureBlock><span>{{fundPerformance.PositionLongExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionLongExposureBlock>
+                    <span>({{fundPerformance.PositionLongExposure|postiveNum|number}})</span>
+                  </ng-template>
+                </span>
+                <span class="c">Net Exp</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionNetExposure >=0; then thenPositionNetExposureBlock else elsePositionNetExposureBlock">
+                  </div>
+                  <ng-template #thenPositionNetExposureBlock><span>{{fundPerformance.PositionNetExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionNetExposureBlock>
+                    <span>({{fundPerformance.PositionNetExposure|postiveNum|number}})</span>
+                  </ng-template>
+                </span>
+              </h4>
+              <h4 class="example-justify" >
+                <span class="navandclose">Close</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div *ngIf="fundPerformance.YesterdayNAV >=0; then thenYesterdayNAVBlock else elseYesterdayNAVBlock"></div>
+                  <ng-template #thenYesterdayNAVBlock><span>{{fundPerformance.YesterdayNAV|number}}</span></ng-template>
+                  <ng-template #elseYesterdayNAVBlock><span>({{fundPerformance.YesterdayNAV|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="MTDandDAILY">Daily</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="number2">
+                  <div *ngIf="fundPerformance.Daily >=0; then thenDailyBlock else elseDailyBlock"></div>
+                  <ng-template #thenDailyBlock><span class="greenColor">{{fundPerformance.Daily|number}}</span></ng-template>
+                  <ng-template #elseDailyBlock><span class="redColor">({{fundPerformance.Daily|postiveNum|number}})</span>
+                  </ng-template>
+                </span>
+                <span class="percent">
+                  <div *ngIf="fundPerformance.DailyPercent  >=0; then thenDailyPercentBlock else elseDailyPercentBlock"></div>
+                  <ng-template #thenDailyPercentBlock>
+                    <span class="greenColor">{{fundPerformance.DailyPercent|number:'1.0-0'}}%</span> 
+                    
+                  </ng-template>
+                  <ng-template #elseDailyPercentBlock>
+                    <span class="redColor">({{fundPerformance.DailyPercent|postiveNum|number:'1.0-0'}}%)</span>
+                    
+                  </ng-template>
+                </span>
+                <span class="ytdandQTD">QTD</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="percent">
+                  <div *ngIf="fundPerformance.QTD >=0; then thenQTDBlock else elseQTDBlock"></div>
+                  <ng-template #thenQTDBlock><span class="greenColor">{{fundPerformance.QTD|number:'1.0-0'}}%</span>
+                  </ng-template>
+                  <ng-template #elseQTDBlock><span class="redColor">({{fundPerformance.QTD|postiveNum|number:'1.0-0'}}%)</span>
+                  </ng-template>
+                </span>
+                <span class="b">Posn (S)</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="number2">
+                  <div *ngIf="fundPerformance.PositionShort >=0; then thenPositionShortBlock else elsePositionShortBlock"></div>
+                  <ng-template #thenPositionShortBlock><span>{{fundPerformance.PositionShort|number}}</span></ng-template>
+                  <ng-template #elsePositionShortBlock><span>({{fundPerformance.PositionShort|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="b">Cash (S)</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionCashShort >=0; then thenPositionCashShortBlock else elsePositionCashShortBlock">
+                  </div>
+                  <ng-template #thenPositionCashShortBlock><span>{{fundPerformance.PositionCashShort|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionCashShortBlock>
+                    <span>({{fundPerformance.PositionCashShort|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="b">Exp (S)</span>&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionShortExposure >=0; then thenPositionShortExposureBlock else elsePositionShortExposureBlock">
+                  </div>
+                  <ng-template #thenPositionShortExposureBlock><span>{{fundPerformance.PositionShortExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionShortExposureBlock>
+                    <span>({{fundPerformance.PositionShortExposure|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+                <span class="c">Gross Exp</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="number">
+                  <div
+                    *ngIf="fundPerformance.PositionGrossExposure >=0; then thenPositionGrossExposureBlock else elsePositionGrossExposureBlock">
+                  </div>
+                  <ng-template #thenPositionGrossExposureBlock><span>{{fundPerformance.PositionGrossExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionGrossExposureBlock>
+                    <span>({{fundPerformance.PositionGrossExposure|postiveNum|number}})</span>
+                  </ng-template>
+        
+                </span>
+              </h4>  -->
+             
+             </div>
+          </mat-panel-description>
+         </mat-expansion-panel-header> 
+     </mat-expansion-panel> 
+            
+
+  <!-- </div>            -->
+      <ng-template #thenPositionLongExposureBlock><span style="color:rgb(243, 243, 245)">{{fundPerformance.PositionLongExposure|number}}</span>
+                  </ng-template>
+                  <ng-template #elsePositionLongExposureBlock>
+                    <span style="color:rgb(243, 243, 245)">({{fundPerformance.PositionLongExposure|postiveNum|number}})</span>
+                  </ng-template>
+                 
+<!-- </div>  -->
+
+<!-- 
+<div>
+  <button (click)="saveState()">Save State</button>
+  <button (click)="restoreState()">Restore State</button>
+   <button (click)="resetState()">Reset State</button>
+
+</div>
+  -->
+
+ <ag-grid-angular
+    #myGrid    
+    style="width: 100%;height: 600px;"
+       class="ag-theme-alpine-dark"
+       [columnDefs]="columnDefs"
+       [defaultColDef]="defaultColDef"
+       [rowData]="rowData"
+       [valueCache]="true"
+       [valueCacheNeverExpires]="true"
+       [rowSelection]="'multiple'"
+       [animateRows]="false"
+       [suppressAggFilteredOnly]="true"
+       [suppressMakeColumnVisibleAfterUnGroup]="true"
+       [alwaysShowHorizontalScroll]="true"
+       [suppressRowGroupHidesColumns]="true"
+       [maintainColumnOrder]="true"
+       [groupIncludeFooter]="true"
+       [groupIncludeTotalFooter]="true"
+       [rowGroupPanelShow]="rowGroupPanelShow"
+       [groupAggFiltering]="true"
+       [sideBar]="{ toolPanels: ['columns', 'filters'] }"
+       [suppressAggFuncInHeader]="true"
+       [aggFuncs]="aggFuncs"
+       (gridReady)="onGridReady($event)" 
+       [scrollbarWidth]="20"    
+      [suppressAnimationFrame]="true"
+     >
+    
+    </ag-grid-angular> 

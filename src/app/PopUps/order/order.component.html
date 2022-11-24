@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Select the columns</h2>
+  <mat-dialog-content *ngFor="let column23 of columnList2" >
+        <p>
+          <mat-checkbox [(ngModel)]="column23.IsActive">{{column23.ColumnName}}</mat-checkbox>
+        </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onSave2()"> Save</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+

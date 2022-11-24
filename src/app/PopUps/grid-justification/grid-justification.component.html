@@ -1,0 +1,28 @@
+
+
+<h2 mat-dialog-title>Set Justification</h2>
+  <mat-dialog-content  >
+    <mat-form-field appearance="outline">
+        <mat-label>Header Alignment</mat-label>
+        <mat-select [(ngModel)]="headerJustify"  >
+          <mat-option *ngFor="let deci of JustifyArray" [value]="deci">{{deci}}</mat-option> 
+        </mat-select>
+      </mat-form-field><br>
+      <mat-form-field appearance="outline">
+        <mat-label>Text Alignment</mat-label>
+        <mat-select [(ngModel)]="textJustify" >
+          <mat-option *ngFor="let deci of JustifyArray" [value]="deci">{{deci}}</mat-option> 
+        </mat-select>
+      </mat-form-field><br>
+      <mat-form-field appearance="outline">
+        <mat-label>Number Alignment</mat-label>
+        <mat-select [(ngModel)]="numericJustify" >
+          <mat-option *ngFor="let deci of JustifyArray" [value]="deci">{{deci}}</mat-option> 
+        </mat-select>
+      </mat-form-field>
+      
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="setJustify()" > Save</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>

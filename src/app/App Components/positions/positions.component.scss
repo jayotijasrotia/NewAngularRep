@@ -1,0 +1,60 @@
+.example-container {
+  width: 100%;
+  min-height: 200px;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.container{
+  max-width: 100%;
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: .5%;
+}
+
+table {
+  width: 1800px;
+  
+ 
+}
+.example-spacer2
+{
+  flex:1 1 auto;
+  align-self: center;
+}
+.dialog-container-custom .mat-dialog-conatiner{
+  height:100%
+}
+.example-justify{
+  justify-content: center;
+}
+// .mat-paginator{
+//   width:100%;
+//   position: fixed;
+// }
+.example-justify {
+  text-align: center;
+}
+.redColor{
+  color:red;
+}
+.greenColor{
+  color:rgb(10, 233, 10);
+}
+
+// td.mat-column-star {
+//   width: 20px;
+//   padding-right: 8px;
+// }
+
+// th.mat-column-position, td.mat-column-position {
+//   padding-left: 8px;
+// }
+
+// .mat-table-sticky-border-elem-right {
+//   border-left: 1px solid #e0e0e0;
+// }
+
+// .mat-table-sticky-border-elem-left {
+//   border-right: 1px solid #e0e0e0;
+// }

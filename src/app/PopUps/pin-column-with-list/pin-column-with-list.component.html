@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Pin columns</h2>
+  <mat-dialog-content *ngFor="let column23 of columns" >
+        <p>
+          <mat-checkbox [(ngModel)]="column23.pinned">{{column23.fieldName}}</mat-checkbox>
+        </p>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onPinSet()"> Save</button>
+    <button mat-button mat-dialog-close>Close</button>
+  </mat-dialog-actions>
+

@@ -1,0 +1,30 @@
+.example-spacer {
+    flex: 1 1 auto;
+    text-align: center;
+    //color: rgb(21, 112, 197);
+  }
+  .mat-toolbar
+  {
+    position: fixed;
+    bottom: 0;
+    height:10vh;
+  }
+  .fontsize
+  {
+    font-size: small;
+  }
+  .d
+  {
+    background: #1e262d;
+  }
+  ::ng-deep .darkMode .mat-menu-content:not(:empty) {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    background: #1e262d;
+}
+.fontsize{
+  font-size: 15px;
+}
+
+
+

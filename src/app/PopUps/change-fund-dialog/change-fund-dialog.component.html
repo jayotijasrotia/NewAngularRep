@@ -1,0 +1,30 @@
+<mat-form-field appearance="outline">
+    <mat-label>Funds</mat-label>
+    <mat-select [(value)]="selectedFundId">
+      <mat-option *ngFor="let fund of FundGroups" [value]="fund.FundGroupID">{{fund.FundGroupName}}</mat-option> 
+    </mat-select>
+  </mat-form-field>
+  <label id="example-radio-group-label"><h4>Performance Positions To Report :</h4></label>
+<mat-radio-group
+  aria-labelledby="example-radio-group-label"
+  class="example-radio-group"
+  [(ngModel)]="selectedMode">
+  <mat-radio-button class="example-radio-button" *ngFor="let mode of modes" [value]="mode">
+    {{mode}}
+  </mat-radio-button>
+</mat-radio-group>
+<div mat-dialog-action [align]="'end'">
+ <!-- <button mat-icon-button (click)="OnSetWithoutSave($event)"><mat-icon>play_arrow</mat-icon></button>   -->
+ <button mat-icon-button (click)="OnSetWithoutSave()"><mat-icon>play_arrow</mat-icon></button>
+<button mat-icon-button (click)="OnSetWithSave()"><mat-icon>save</mat-icon></button>  
+
+
+
+</div>
+
+
+
+   
+  
+   
+ 
